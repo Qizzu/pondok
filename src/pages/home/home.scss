@@ -1,3 +1,20 @@
 page-home {
+    .list-md {
+        margin-bottom: 0px;
+    }
+    
+    .border {
+        border-bottom: 1px solid rgba(65, 62, 62, 0.938);
+    }
+
+    .item-divider-md{
+        border-bottom: 0px;
+        font-size: 1.6rem;
+    }
+    
+    .page-title {
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
 
 }
