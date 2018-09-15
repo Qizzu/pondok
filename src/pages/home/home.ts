@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 
@@ -22,41 +22,55 @@ export class HomePage {
   page = 2;
   totalPage;
 
-  constructor(public navCtrl: NavController, private database: DatabaseProvider,public http:HttpClient) {
-    this.getAllBarang();
+  constructor(public navCtrl: NavController, private http:HttpClient, private database: DatabaseProvider, public platform: Platform) {
+    // this.getAllBarang();
   }
 
-  // createBook(){
-  //   this.database.createBarang('Pepsodent','Odol', 3).then((data) => {
-  //     console.log(data);
-  //   }, (error) => {
-  //     console.log(error);
-  //   })
-  // }
+  ionViewDidEnter(){
+    this.database.getDatabaseState().subscribe ( open => {
+      if (open) {
+        this.getAllBarang();
+      }
+    })
+  }
 
-  // getAllBarang(){
-  //   this.database.getAllBarang().then((data) => {
-  //     console.log(data);
-  //   }, (error) => {
-  //     console.log(error);
-  //   })
-  // }
+  createBook(){
+    this.database.createBarang('BH','Odol', 3).then((data) => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    })
+  }
+
+  getAllBarang(){
+    this.database.getAllBarang().then((data) => {
+      this.dataTemp = data;
+      this.initializeItems();
+    }, (error) => {
+      console.log(error);
+    })
+  }
+
   initializeItems() {
     this.dataTemp2 = this.dataTemp
     this.dataBarang = this.dataTemp2.slice(0,(this.perPage));
   }
   
-  getAllBarang(){
-    this.http.get(this.urlApi).subscribe(res => {
-      this.dataTemp = res['results'];
-      this.initializeItems();
-    })
-  }
+  // getAllBarang(){
+  //   this.http.get(this.urlApi).subscribe(res => {
+  //     this.dataTemp = res['results'];
+  //     console.log(this.dataTemp);
+  //     this.initializeItems();
+  //   })
+  // }
 
-  deleteBook(id){
-    // this.bookService.deleteData(id).subscribe(res => {
-    //   this.navCtrl.setRoot(this.navCtrl.getActive().component);
-    // }); 
+  deleteBarang(id){
+    console.log(id);
+    this.database.deleteBarang(id).then((data) => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    })
   }
 
   doRefresh(refresher) {
@@ -72,7 +86,7 @@ export class HomePage {
     const val = ev.target.value;
     if (val && val.trim() != '') {
       this.dataTemp2 = this.dataTemp.filter((item) => {
-        return (item.name.first.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.barang.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
     this.dataBarang = this.dataTemp2.slice(0,(this.perPage));

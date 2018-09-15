@@ -25,7 +25,8 @@
       refreshingText="Refreshing...">
     </ion-refresher-content>
   </ion-refresher>
-
+  <!-- <button ion-button block (click)="createBook()">Create Barang</button>
+  <button ion-button block (click)="getAllBarang()">Get Barang</button> -->
   <ion-list> 
     <ion-item-sliding #item>
       <ion-item color="secondary" class="page-title">
@@ -46,9 +47,11 @@
       <ion-item-group>
       <ion-item-sliding #item>
         <ion-item no-margin>
-            <ion-row>{{mm.name.first}}</ion-row>
-            <span ion-text color="grey" class="bold">{{mm.email}}</span>
-            <ion-row></ion-row>
+          <ion-row>{{mm.barang}}</ion-row>
+          <span ion-text color="grey" class="bold">{{mm.tipe_barang}}</span>
+          <!-- <ion-row>{{mm.name.first}}</ion-row>
+          <span ion-text color="grey" class="bold">{{mm.email}}</span> -->
+          <ion-row></ion-row>
         </ion-item>
             
         <!-- <ion-item-options side="left">
@@ -57,7 +60,7 @@
         </ion-item-options> -->
     
         <ion-item-options side="right">
-          <button ion-button (click)="deleteBook(id)" color="danger"><ion-icon name="trash"></ion-icon>Delete</button>
+          <button ion-button (click)="deleteBarang(mm.id)" color="danger"><ion-icon name="trash"></ion-icon>Delete</button>
         </ion-item-options>
       </ion-item-sliding>
       </ion-item-group>

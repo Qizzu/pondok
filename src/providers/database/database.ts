@@ -2,33 +2,39 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Http } from '@angular/http';
+import { Platform } from 'ionic-angular';
+import { BehaviorSubject } from 'rxjs/Rx';
 
-/*
-  Generated class for the DatabaseProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DatabaseProvider {
 //START CLASS
 
   private db:SQLiteObject;
-  private isOpen:boolean;
+  // private isOpen:boolean;
+  private isOpen: BehaviorSubject<boolean>;
 
-  constructor(public http: Http, public storage:SQLite) {
-    if (!this.isOpen) {
-      this.storage = new SQLite();
-      this.storage.create({name:"data.db", location:"default"}).then((db:SQLiteObject)=>{
-        this.db = db;
-        // db.executeSql("DROP TABLE barang",[]);
-        db.executeSql("CREATE TABLE IF NOT EXISTS barang( id INTEGER PRIMARY KEY AUTOINCREMENT, barang TEXT NOT NULL, tipe_barang TEXT, stok INTEGER)",[]);
-        this.isOpen = true;
-      }).catch((error) => {
-        console.log(error);
-      })
-    }
+  constructor(public http: Http, public storage:SQLite, private platform: Platform) {
+    this.initiallizeDB();
   }
+
+  initiallizeDB(){
+    this.isOpen = new BehaviorSubject(false);
+    this.platform.ready().then(() => {
+      this.storage.create({
+        name: 'data.db',
+        location: 'default'
+      })
+      .then((db: SQLiteObject) => {
+        this.db = db;
+        db.executeSql('CREATE TABLE IF NOT EXISTS barang( id INTEGER PRIMARY KEY AUTOINCREMENT, barang TEXT NOT NULL, tipe_barang TEXT, stok INTEGER)', [])
+        .then(() => console.log('Executed SQL'))
+        .catch(e => console.log(e));
+        this.isOpen.next(true);
+      })
+      .catch(e => console.log(e));
+    })
+}
 
   createBarang(barang:string, tipe_barang:string, stok:number){
     return new Promise((resolve,reject) => {
@@ -60,6 +66,21 @@ export class DatabaseProvider {
         reject(error);
       })
     })
+  }
+
+  deleteBarang(id:number){
+    return new Promise((resolve,reject) => {
+      let sql = "DELETE FROM barang WHERE id  = ?";
+      this.db.executeSql(sql,[id]).then((data)=>{
+        resolve(data);
+      }, (error) => {
+        reject(error);
+      });
+    });
+  }
+
+  getDatabaseState() {
+    return this.isOpen.asObservable();
   }
 
 //END CLASS
