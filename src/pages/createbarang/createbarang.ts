@@ -41,13 +41,17 @@ export class CreatebarangPage {
 
   createBarang(){
     let val = this.formgroup.value;
-    // console.log(val);
     this.database.createBarang(val.barang, val.tipe_barang, val.harga).then((data) => {
+      this.formgroup.reset();
       this.navCtrl.push(HomePage);
       console.log(data);
     }, (error) => {
       console.log(error);
     })
+  }
+
+  goHome(){
+    this.navCtrl.push(HomePage);
   }
 
   ionViewDidLoad() {

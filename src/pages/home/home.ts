@@ -34,13 +34,7 @@ export class HomePage {
     })
   }
 
-  createBook(){
-    this.database.createBarang('BH','Odol', 3).then((data) => {
-      console.log(data);
-    }, (error) => {
-      console.log(error);
-    })
-  }
+  
 
   getAllBarang(){
     this.database.getAllBarang().then((data) => {
@@ -56,23 +50,16 @@ export class HomePage {
     this.dataBarang = this.dataTemp2.slice(0,(this.perPage));
   }
   
-  // getAllBarang(){
-  //   this.http.get(this.urlApi).subscribe(res => {
-  //     this.dataTemp = res['results'];
-  //     console.log(this.dataTemp);
-  //     this.initializeItems();
-  //   })
-  // }
-
+  
   deleteBarang(id){
     console.log(id);
     this.database.deleteBarang(id).then((data) => {
-      console.log(data);
+      this.navCtrl.setRoot(this.navCtrl.getActive().component);
     }, (error) => {
       console.log(error);
     })
   }
-
+  
   doRefresh(refresher) {
     setTimeout(() => {
       this.navCtrl.setRoot(this.navCtrl.getActive().component);
@@ -110,5 +97,21 @@ export class HomePage {
   createBarang(){
     this.navCtrl.setRoot(CreatebarangPage);
   }
+
+  // getAllBarang(){
+  //   this.http.get(this.urlApi).subscribe(res => {
+  //     this.dataTemp = res['results'];
+  //     console.log(this.dataTemp);
+  //     this.initializeItems();
+  //   })
+  // }
+
+  // createBook(){
+  //   this.database.createBarang('BH','Odol', 3).then((data) => {
+  //     console.log(data);
+  //   }, (error) => {
+  //     console.log(error);
+  //   })
+  // }
 
 }

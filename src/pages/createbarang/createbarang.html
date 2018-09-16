@@ -7,7 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Tambah Barang</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="goHome()">
+        <ion-icon color="secondary" name="ios-home"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+        Tambah Barang
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -27,7 +34,8 @@
         <ion-input type="text" formControlName = "barang"></ion-input>
       </ion-item>
       <ion-item *ngIf="barang.hasError('required') && barang.touched" >
-        <p>*Barang is required</p>
+        <!-- <p>*Barang is required</p> -->
+        <ion-badge color="danger" item-start>*Barang is required</ion-badge>
       </ion-item>
     </ion-item-group>
 
@@ -40,7 +48,7 @@
         <ion-input type="text" formControlName = "tipe_barang"></ion-input>
       </ion-item>
       <ion-item *ngIf="tipe_barang.hasError('required') && tipe_barang.touched" >
-        <p>*Barang is required</p>
+        <ion-badge color="danger" item-start>*Tipe Barang is required</ion-badge>
       </ion-item>
     </ion-item-group>
 
@@ -50,10 +58,14 @@
           <ion-icon name="logo-bitcoin" item-start class="text-primary"></ion-icon>
           Harga 
         </ion-label>
-        <ion-input type="text" formControlName = "harga"></ion-input>
+        <ion-input type="number" formControlName = "harga"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="harga.hasError('required') && harga.touched" >
+        <ion-badge color="danger" item-start>*Harga is required</ion-badge>
       </ion-item>
     </ion-item-group>
-    <button clear ion-button full color="success" type="submit" [disabled]="!formgroup.valid" >Submit</button>
+    <button ion-button block type="submit" [disabled]="!formgroup.valid">Submit</button>
+    <button ion-button block type="reset" color="danger">Reset</button>
   </form>
 
 </ion-content>
