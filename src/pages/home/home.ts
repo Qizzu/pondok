@@ -23,27 +23,27 @@ export class HomePage {
   totalPage;
 
   constructor(public navCtrl: NavController, private http:HttpClient, private database: DatabaseProvider, public platform: Platform) {
-    // this.getAllBarang();
+    this.getAllBarang();
   }
 
   ionViewDidEnter(){
-    this.database.getDatabaseState().subscribe ( open => {
-      if (open) {
-        this.getAllBarang();
-      }
-    })
+    // this.database.getDatabaseState().subscribe ( open => {
+    //   if (open) {
+    //     this.getAllBarang();
+    //   }
+    // })
   }
 
   
 
-  getAllBarang(){
-    this.database.getAllBarang().then((data) => {
-      this.dataTemp = data;
-      this.initializeItems();
-    }, (error) => {
-      console.log(error);
-    })
-  }
+  // getAllBarang(){
+  //   this.database.getAllBarang().then((data) => {
+  //     this.dataTemp = data;
+  //     this.initializeItems();
+  //   }, (error) => {
+  //     console.log(error);
+  //   })
+  // }
 
   initializeItems() {
     this.dataTemp2 = this.dataTemp
@@ -98,13 +98,13 @@ export class HomePage {
     this.navCtrl.setRoot(CreatebarangPage);
   }
 
-  // getAllBarang(){
-  //   this.http.get(this.urlApi).subscribe(res => {
-  //     this.dataTemp = res['results'];
-  //     console.log(this.dataTemp);
-  //     this.initializeItems();
-  //   })
-  // }
+  getAllBarang(){
+    this.http.get(this.urlApi).subscribe(res => {
+      this.dataTemp = res['results'];
+      console.log(this.dataTemp);
+      this.initializeItems();
+    })
+  }
 
   // createBook(){
   //   this.database.createBarang('BH','Odol', 3).then((data) => {

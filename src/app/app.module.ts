@@ -8,6 +8,8 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { CreatebarangPage } from '../pages/createbarang/createbarang';
 import { TabsPage } from '../pages/tabs/tabs';
+import { TbarangPage } from '../pages/tbarang/tbarang'
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     ContactPage,
     HomePage,
     CreatebarangPage,
+    TbarangPage,
     TabsPage
   ],
   imports: [
@@ -39,6 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
     ContactPage,
     HomePage,
     CreatebarangPage,
+    TbarangPage,
     TabsPage
   ],
   providers: [

@@ -1,4 +1,4 @@
-page-home {
+page-tbarang {
     .list-md {
         margin-bottom: 0px;
     }
@@ -11,20 +11,11 @@ page-home {
         border-bottom: 0px;
         font-size: 1.6rem;
     }
-    
-    .page-title {
-        padding-top: 4px;
-        padding-bottom: 4px;
-    }
-
-    .btnwidth {
-        width:25%;
-    }
 
     ion-spinner {
         display: block;
         margin: auto;
         margin-top:10px;
-    }
+      }
 
 }

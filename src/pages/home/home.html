@@ -48,13 +48,15 @@
 
   
    <ion-list *ngFor="let mm of dataBarang" class="border">
-      <ion-item-group>
+    <ion-item-group>
       <ion-item-sliding #item>
         <ion-item no-margin>
-          <ion-row>{{mm.barang}}</ion-row>
-          <span ion-text color="grey" class="bold">{{mm.tipe_barang}}</span>
-          <!-- <ion-row>{{mm.name.first}}</ion-row>
-          <span ion-text color="grey" class="bold">{{mm.email}}</span> -->
+          <!-- <ion-row>{{mm.barang}}</ion-row>
+          <span ion-text color="grey" class="bold">{{mm.tipe_barang}}</span> -->
+          <h2>{{mm.name.first}}
+          </h2>
+          <button ion-button outline class="btnwidth" item-end>1.000.000</button>
+          <span ion-text color="grey" class="bold">{{mm.email}}</span>
           <ion-row></ion-row>
         </ion-item>
             

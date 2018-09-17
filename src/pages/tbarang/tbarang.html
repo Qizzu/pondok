@@ -1,0 +1,61 @@
+<ion-header class="no-shadow">
+  <ion-navbar class="no-shadow">
+    <ion-title *ngIf="!isSearch" >Tipe Barang</ion-title>
+    <ion-searchbar *ngIf="isSearch" 
+                    showCancelButton="true" 
+                    (ionInput)="onSearch($event)" 
+                    (ionCancel)="isSearch=false">
+    </ion-searchbar>
+    <ion-buttons end>
+      <button ion-button icon-only *ngIf="!isSearch" (click)="isSearch=true" >
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- <button ion-button block (click)="createBook()">Create Tipe Barang</button>
+  <button ion-button block (click)="getAllTipeBarang()">Get Tipe Barang</button> -->
+
+  <div *ngIf="searching" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  
+  <ion-list *ngFor="let mm of dataTipeBarang" class="border">
+    <ion-item-group>
+      <ion-item-sliding #item>
+        <ion-item no-margin>
+          <h2>{{mm.tipe_barang}}
+          </h2>
+          <!-- <h2>{{mm.email}}
+          </h2> -->
+          <ion-row></ion-row>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button (click)="deleteTipeBarang(mm.id)" color="danger"><ion-icon name="trash"></ion-icon>Delete</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab (click)="showPrompt()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"
+    loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+    
+</ion-content>
